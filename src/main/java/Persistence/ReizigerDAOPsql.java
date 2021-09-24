@@ -9,9 +9,6 @@ import java.util.List;
 public class ReizigerDAOPsql implements ReizigerDAO{
 
     private Connection connection;
-    Connection connect;// = DriverManager.getConnection("jdbc:postgresql://localhost:5435/OV-Chipkaart", "postgres", "admin");
-//
-//    Statement st =  connect.createStatement();
 
     public ReizigerDAOPsql(Connection conn) throws SQLException {
         this.connection = conn;
@@ -48,7 +45,6 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                             "tussenvoegsel = ?, " +
                             "achternaam = ?, " +
                             "geboortedatum = ?");
-
             statement.setInt(1, r.getId());
             statement.setString(2, r.getVoorletters());
             statement.setString(3, r.getTussenvoegsel());
@@ -105,7 +101,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             return reiziger;
 
         } catch (SQLException e) {
-            System.out.println("Saving didn't work");
+            System.out.println("findById didn't work");
             return null;
         }
     }
@@ -146,7 +142,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             return reizigerList;
 
         } catch (SQLException e) {
-            System.out.println("Saving didn't work");
+            System.out.println("findByGbdatum didn't work");
             return null;
         }
     }
@@ -183,7 +179,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             return reizigerList;
 
         } catch (SQLException e) {
-            System.out.println("Saving didn't work");
+            System.out.println("findAll didn't work");
             return null;
         }
     }
