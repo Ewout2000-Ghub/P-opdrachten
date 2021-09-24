@@ -42,7 +42,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
             return true;
         } catch (SQLException e) {
-            System.out.println("Saving didn't work");
+            System.out.println("Saving didn't work: " + e.getMessage());
             return false;
         }
     }
@@ -67,7 +67,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             System.out.println("Update complete");
             return true;
         } catch (SQLException e) {
-            System.out.println("Updating didn't work");
+            System.out.println("Updating didn't work: " + e.getMessage());
             return false;
         }
     }
@@ -92,7 +92,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             System.out.println("Delete complete");
             return true;
         } catch (SQLException e) {
-            System.out.println("Deleting didn't work");
+            System.out.println("Deleting didn't work: " + e.getMessage());
             return false;
         }
     }
@@ -113,7 +113,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             return reiziger;
 
         } catch (SQLException e) {
-            System.out.println("findById didn't work");
+            System.out.println("findById didn't work: " + e.getMessage());
             return null;
         }
     }
@@ -181,7 +181,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             return reizigerList;
 
         } catch (SQLException e) {
-            System.out.println("findAll didn't work");
+            System.out.println("findAll didn't work: " + e.getMessage());
             return null;
         }
     }

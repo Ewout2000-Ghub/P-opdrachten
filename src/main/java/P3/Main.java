@@ -14,10 +14,21 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5435/OV-Chipkaart", "postgres", "admin");
-        AdresDAOPsql adresDao = new AdresDAOPsql(conn);
+    private static Connection conn;
 
+    private static Connection getConnection() throws SQLException {
+        if(conn == null) {
+            conn = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5435/OV-Chipkaart",
+                    "postgres",
+                    "admin");
+        }
+        return conn;
+    }
+
+    public static void main(String[] args) throws SQLException {
+//        Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5435/OV-Chipkaart", "postgres", "admin");
+        AdresDAOPsql adresDao = new AdresDAOPsql(conn);
 
         try {
             testAdresDAO(adresDao);
@@ -30,7 +41,8 @@ public class Main {
 
     private static void testAdresDAO(AdresDAO adao) throws SQLException {
         System.out.println("\n---------- Test AdresDAO -------------");
-        Reiziger reiziger = new Reiziger(5, "H", null, "JANSEN", java.sql.Date.valueOf("1990-01-12"));
+        Reiziger reiziger = new Reiziger(6, "H", null, "JANSEN", java.sql.Date.valueOf("1990-01-12"));
+        Adres adres = new Adres(6, "3824BR", "21", "Bosappelgaarde", "Amersfoort", 6);
 
         // Haal alle reizigers op uit de database
         List<Adres> adressen = adao.findAll();
@@ -40,8 +52,13 @@ public class Main {
         }
         System.out.println();
 
+        // Test findByReiziger()
         System.out.println("[Test] AdresDAO.findByReiziger() geeft het volgende adres:");
 
         System.out.println(adao.findByReiziger(reiziger));
+
+        // Test save()
+        System.out.println("[Test] AdresDAO.save() geeft het volgende:");
+        System.out.println(adao.save(adres));
     }
 }

@@ -54,5 +54,9 @@ public class Main {
         System.out.println(reizigers.size() + " reizigers\n");
 
         // Voeg aanvullende tests van de ontbrekende CRUD-operaties in.
+        //Save()
+        Reiziger henk = new Reiziger(6, "H", null, "JANSEN", java.sql.Date.valueOf("1990-01-12"));
+        System.out.println("[Test] AdresDAO.save() geeft het volgende:");
+        System.out.println(rdao.save(henk));
     }
 }

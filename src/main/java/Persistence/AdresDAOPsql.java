@@ -26,7 +26,7 @@ public class AdresDAOPsql implements AdresDAO{
             statement.setString(3, adres.getHuisnummer());
             statement.setString(4, adres.getStraat());
             statement.setString(5, adres.getWoonplaats());
-            statement.setInt(6, adres.getReiziger().getId());
+            statement.setInt(6, adres.getReizigerId());
 
             statement.executeQuery();
 
@@ -34,7 +34,7 @@ public class AdresDAOPsql implements AdresDAO{
 
             return true;
         } catch (SQLException e) {
-            System.out.println("Saving didn't work");
+            System.out.println("Saving didn't work: " + e.getMessage());
             return false;
         }
     }
@@ -54,14 +54,14 @@ public class AdresDAOPsql implements AdresDAO{
             statement.setString(3, adres.getHuisnummer());
             statement.setString(4, adres.getStraat());
             statement.setString(5, adres.getWoonplaats());
-            statement.setInt(6, adres.getReiziger().getId());
+            statement.setInt(6, adres.getReizigerId());
 
             statement.executeQuery();
 
             System.out.println("Update complete");
             return true;
         } catch (SQLException e) {
-            System.out.println("Updating didn't work");
+            System.out.println("Updating didn't work: " + e.getMessage());
             return false;
         }
     }
@@ -81,13 +81,13 @@ public class AdresDAOPsql implements AdresDAO{
             statement.setString(3, adres.getHuisnummer());
             statement.setString(4, adres.getStraat());
             statement.setString(5, adres.getWoonplaats());
-            statement.setInt(6, adres.getReiziger().getId());
+            statement.setInt(6, adres.getReizigerId());
 
             statement.executeQuery();
 
             return true;
         } catch (SQLException e) {
-            System.out.println("Deleting didn't work");
+            System.out.println("Deleting didn't work: " + e.getMessage());
             return false;
         }
     }
@@ -112,7 +112,7 @@ public class AdresDAOPsql implements AdresDAO{
             return adres;
 
         } catch (SQLException e) {
-            System.out.println("findByReiziger didn't work, " + e.getMessage());
+            System.out.println("findByReiziger didn't work: " + e.getMessage());
             return null;
         }
     }
@@ -145,7 +145,7 @@ public class AdresDAOPsql implements AdresDAO{
             return adresList;
 
         } catch (SQLException e) {
-            System.out.println("findAll didn't work");
+            System.out.println("findAll didn't work: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
