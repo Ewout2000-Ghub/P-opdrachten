@@ -1,5 +1,6 @@
 package Persistence;
 
+import Model.Adres;
 import Model.Reiziger;
 
 import java.sql.*;
@@ -9,9 +10,15 @@ import java.util.List;
 public class ReizigerDAOPsql implements ReizigerDAO{
 
     private Connection connection;
+    private AdresDAO adresDAO;
 
     public ReizigerDAOPsql(Connection conn) throws SQLException {
         this.connection = conn;
+    }
+
+    public ReizigerDAOPsql(Connection conn, AdresDAO adrD) {
+        this.connection = conn;
+        this.adresDAO = adrD;
     }
 
     public boolean save(Reiziger r) {
@@ -26,6 +33,10 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             statement.setDate(5, r.getGeboortedatum());
 
             statement.executeQuery();
+
+            if (r.getAdres() != null) {
+                adresDAO.save(r.getAdres());
+            }
 
             System.out.println("Save complete");
 
@@ -78,6 +89,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
             statement.executeQuery();
 
+            System.out.println("Delete complete");
             return true;
         } catch (SQLException e) {
             System.out.println("Deleting didn't work");
@@ -132,12 +144,6 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
                 Reiziger reiziger = new Reiziger(id, voorletters, tussenvoegsel, achternaam, gbdatum);
                 reizigerList.add(reiziger);
-
-                System.out.println("Reiziger id: " + id +
-                        ", voorletters: " + voorletters +
-                        ", tussenvoegsel: " + tussenvoegsel +
-                        ", achternaam: " + achternaam +
-                        ", Geboortedatum: " + gbdatum);
             }
             return reizigerList;
 
@@ -168,13 +174,9 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                 gbdatum = rs.getDate("geboortedatum");
 
                 Reiziger reiziger = new Reiziger(id, voorletters, tussenvoegsel, achternaam, gbdatum);
+                Adres adres = adresDAO.findByReiziger(reiziger);
                 reizigerList.add(reiziger);
 
-                System.out.println("Reiziger id: " + id +
-                        ", voorletters: " + voorletters +
-                        ", tussenvoegsel: " + tussenvoegsel +
-                        ", achternaam: " + achternaam +
-                        ", Geboortedatum: " + gbdatum);
             }
             return reizigerList;
 

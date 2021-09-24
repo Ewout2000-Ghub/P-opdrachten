@@ -17,10 +17,6 @@ public class Main {
 
         try {
             testReizigerDAO(reizigerDao);
-//            Statement st =  conn.createStatement();
-//            ResultSet rslt = st.executeQuery("");
-//
-//            System.out.println(rslt);
 
         } catch (Exception e) {
             e.printStackTrace();

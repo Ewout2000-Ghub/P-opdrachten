@@ -23,7 +23,7 @@ public class AdresDAOPsql implements AdresDAO{
                             "VALUES (?, ?, ?, ?, ?, ?)");
             statement.setInt(1, adres.getId());
             statement.setString(2, adres.getPostcode());
-            statement.setInt(3, adres.getHuisnummer());
+            statement.setString(3, adres.getHuisnummer());
             statement.setString(4, adres.getStraat());
             statement.setString(5, adres.getWoonplaats());
             statement.setInt(6, adres.getReiziger().getId());
@@ -51,7 +51,7 @@ public class AdresDAOPsql implements AdresDAO{
                             "reiziger_id = ?");
             statement.setInt(1, adres.getId());
             statement.setString(2, adres.getPostcode());
-            statement.setInt(3, adres.getHuisnummer());
+            statement.setString(3, adres.getHuisnummer());
             statement.setString(4, adres.getStraat());
             statement.setString(5, adres.getWoonplaats());
             statement.setInt(6, adres.getReiziger().getId());
@@ -78,7 +78,7 @@ public class AdresDAOPsql implements AdresDAO{
                             "reiziger_id = ?)");
             statement.setInt(1, adres.getId());
             statement.setString(2, adres.getPostcode());
-            statement.setInt(3, adres.getHuisnummer());
+            statement.setString(3, adres.getHuisnummer());
             statement.setString(4, adres.getStraat());
             statement.setString(5, adres.getWoonplaats());
             statement.setInt(6, adres.getReiziger().getId());
@@ -93,7 +93,34 @@ public class AdresDAOPsql implements AdresDAO{
     }
 
     public Adres findByReiziger(Reiziger reiziger) {
-        return null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM adres WHERE reiziger_id = ?");
+            statement.setInt(1, reiziger.getId());
+            ResultSet rs = statement.executeQuery();
+
+            return new Adres(
+                    rs.getInt("adres_id"),
+                    rs.getString("postcode"),
+                    rs.getString("huisnummer"),
+                    rs.getString("straat"),
+                    rs.getString("woonplaats"),
+                    rs.getInt("reiziger_id"));
+
+//            Adres adres = new Adres(
+//                    rs.getInt("adres_id"),
+//                    rs.getString("postcode"),
+//                    rs.getInt("huisnummer"),
+//                    rs.getString("straat"),
+//                    rs.getString("woonplaats"),
+//                    rs.getInt("reiziger_id"));
+//
+//            return adres;
+
+        } catch (SQLException e) {
+            System.out.println("findByReiziger didn't work");
+            return null;
+        }
     }
 
     public List<Adres> findAll() {
@@ -105,7 +132,7 @@ public class AdresDAOPsql implements AdresDAO{
 
             int id;
             String postcode;
-            int huisnummer;
+            String huisnummer;
             String straat;
             String woonplaats;
             int reizigerId;
@@ -113,18 +140,19 @@ public class AdresDAOPsql implements AdresDAO{
             while (rs.next()) {
                 id = rs.getInt("adres_id");
                 postcode = rs.getString("postcode");
-                huisnummer = rs.getInt("huisnummer");
+                huisnummer = rs.getString("huisnummer");
                 straat = rs.getString("straat");
                 woonplaats = rs.getString("woonplaats");
                 reizigerId = rs.getInt("reiziger_id");
 
-                Adres adres = new Adres(id, postcode, huisnummer, straat, woonplaats);
+                Adres adres = new Adres(id, postcode, huisnummer, straat, woonplaats, reizigerId);
                 adresList.add(adres);
             }
             return adresList;
 
         } catch (SQLException e) {
-            System.out.println("Saving didn't work");
+            System.out.println("findAll didn't work");
+            e.printStackTrace();
             return null;
         }
     }

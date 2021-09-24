@@ -4,17 +4,19 @@ public class Adres {
 
     private int id;
     private String postcode;
-    private int huisnummer;
+    private String huisnummer;
     private String straat;
     private String woonplaats;
-    private Reiziger reiziger;
+    private int reizigerId;
+    private Reiziger r;
 
-    public Adres(int id, String ptc, int hsnr, String strt, String wnplts) {
+    public Adres(int id, String ptc, String hsnr, String strt, String wnplts, int rId) {
         this.id = id;
         this.postcode = ptc;
         this.huisnummer = hsnr;
         this.straat = strt;
         this.woonplaats = wnplts;
+        this.reizigerId = rId;
     }
 
     public void setId(int id) {
@@ -23,7 +25,7 @@ public class Adres {
     public void setPostcode(String pc) {
         this.postcode = postcode;
     }
-    public void setHuisnummer(int huisnummer) {
+    public void setHuisnummer(String huisnummer) {
         this.huisnummer = huisnummer;
     }
     public void setStraat(String straat) {
@@ -32,8 +34,8 @@ public class Adres {
     public void setWoonplaats(String woonplaats) {
         this.woonplaats = woonplaats;
     }
-    public void setReiziger(Reiziger reiziger) {
-        this.reiziger = reiziger;
+    public void setReizigerId(int reizigerId) {
+        this.reizigerId = reizigerId;
     }
 
     public int getId() {
@@ -42,7 +44,7 @@ public class Adres {
     public String getPostcode() {
         return postcode;
     }
-    public int getHuisnummer() {
+    public String getHuisnummer() {
         return huisnummer;
     }
     public String getStraat() {
@@ -51,15 +53,18 @@ public class Adres {
     public String getWoonplaats() {
         return woonplaats;
     }
+    public int getReizigerId() {
+        return reizigerId;
+    }
     public Reiziger getReiziger() {
-        return reiziger;
+        return r;
     }
 
     public String toString() {
-        return "#" + id + ": " + postcode + ", " +
+        return "{#" + id + ": " + postcode + ", " +
                 huisnummer + ", " +
                 straat + ", " +
                 woonplaats + ", " +
-                reiziger.getId();
+                reizigerId + "}";
     }
 }

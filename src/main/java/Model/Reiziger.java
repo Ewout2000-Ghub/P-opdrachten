@@ -9,6 +9,7 @@ public class Reiziger {
     private String tussenvoegsel;
     private String achternaam;
     private Date geboortedatum;
+    private Adres adres;
 
     public Reiziger(int id, String vrltr, String tsvg, String atnm, Date gbdtm) {
         this.id = id;
@@ -33,6 +34,9 @@ public class Reiziger {
     public void setGeboortedatum(Date geboortedatum) {
         this.geboortedatum = geboortedatum;
     }
+    public void setAdres(Adres adres) {
+        this.adres = adres;
+    }
 
     public int getId() {
         return id;
@@ -49,11 +53,14 @@ public class Reiziger {
     public Date getGeboortedatum() {
         return geboortedatum;
     }
+    public Adres getAdres() {
+        return adres;
+    }
 
     public String toString() {
-        return "#" + id + ": " + voorletters + ". " +
+        return "Reiziger {#" + id + ": " + voorletters + ". " +
                 tussenvoegsel + " " +
                 achternaam + " (" +
-                geboortedatum + ")";
+                geboortedatum + "), Adres " + adres.toString() + "}";
     }
 }
