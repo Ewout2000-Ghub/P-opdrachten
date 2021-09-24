@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Main {
 
-    private static Connection conn;
+    private static Connection conn = null;
 
     private static Connection getConnection() throws SQLException {
         if(conn == null) {
@@ -27,7 +27,6 @@ public class Main {
     }
 
     public static void main(String[] args) throws SQLException {
-//        Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5435/OV-Chipkaart", "postgres", "admin");
         AdresDAOPsql adresDao = new AdresDAOPsql(conn);
 
         try {
@@ -37,7 +36,6 @@ public class Main {
             e.printStackTrace();
         }
     }
-
 
     private static void testAdresDAO(AdresDAO adao) throws SQLException {
         System.out.println("\n---------- Test AdresDAO -------------");
