@@ -1,6 +1,8 @@
 package P2;
 
 import Model.Reiziger;
+import Persistence.AdresDAO;
+import Persistence.AdresDAOPsql;
 import Persistence.ReizigerDAO;
 import Persistence.ReizigerDAOPsql;
 
@@ -11,7 +13,8 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5435/OV-Chipkaart", "postgres", "admin");
-        ReizigerDAOPsql reizigerDao = new ReizigerDAOPsql(conn);
+        AdresDAO adresDAO = new AdresDAOPsql(conn);
+        ReizigerDAOPsql reizigerDao = new ReizigerDAOPsql(conn, adresDAO);
 
         Reiziger reiziger = new Reiziger(6, "H", null, "JANSEN", java.sql.Date.valueOf("1990-01-12"));
 

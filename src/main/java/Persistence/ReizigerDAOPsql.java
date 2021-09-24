@@ -175,8 +175,8 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
                 Reiziger reiziger = new Reiziger(id, voorletters, tussenvoegsel, achternaam, gbdatum);
                 Adres adres = adresDAO.findByReiziger(reiziger);
+                reiziger.setAdres(adres);
                 reizigerList.add(reiziger);
-
             }
             return reizigerList;
 

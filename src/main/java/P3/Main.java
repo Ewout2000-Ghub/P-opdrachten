@@ -30,6 +30,7 @@ public class Main {
 
     private static void testAdresDAO(AdresDAO adao) throws SQLException {
         System.out.println("\n---------- Test AdresDAO -------------");
+        Reiziger reiziger = new Reiziger(5, "H", null, "JANSEN", java.sql.Date.valueOf("1990-01-12"));
 
         // Haal alle reizigers op uit de database
         List<Adres> adressen = adao.findAll();
@@ -38,5 +39,9 @@ public class Main {
             System.out.println(a);
         }
         System.out.println();
+
+        System.out.println("[Test] AdresDAO.findByReiziger() geeft het volgende adres:");
+
+        System.out.println(adao.findByReiziger(reiziger));
     }
 }

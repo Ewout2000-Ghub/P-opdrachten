@@ -93,32 +93,26 @@ public class AdresDAOPsql implements AdresDAO{
     }
 
     public Adres findByReiziger(Reiziger reiziger) {
+        Adres adres = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM adres WHERE reiziger_id = ?");
             statement.setInt(1, reiziger.getId());
             ResultSet rs = statement.executeQuery();
 
-            return new Adres(
-                    rs.getInt("adres_id"),
-                    rs.getString("postcode"),
-                    rs.getString("huisnummer"),
-                    rs.getString("straat"),
-                    rs.getString("woonplaats"),
-                    rs.getInt("reiziger_id"));
-
-//            Adres adres = new Adres(
-//                    rs.getInt("adres_id"),
-//                    rs.getString("postcode"),
-//                    rs.getInt("huisnummer"),
-//                    rs.getString("straat"),
-//                    rs.getString("woonplaats"),
-//                    rs.getInt("reiziger_id"));
-//
-//            return adres;
+            while (rs.next()) {
+                adres = new Adres(
+                        rs.getInt("adres_id"),
+                        rs.getString("postcode"),
+                        rs.getString("huisnummer"),
+                        rs.getString("straat"),
+                        rs.getString("woonplaats"),
+                        rs.getInt("reiziger_id"));
+            }
+            return adres;
 
         } catch (SQLException e) {
-            System.out.println("findByReiziger didn't work");
+            System.out.println("findByReiziger didn't work, " + e.getMessage());
             return null;
         }
     }

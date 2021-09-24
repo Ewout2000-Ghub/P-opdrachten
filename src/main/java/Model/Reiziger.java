@@ -61,6 +61,6 @@ public class Reiziger {
         return "Reiziger {#" + id + ": " + voorletters + ". " +
                 tussenvoegsel + " " +
                 achternaam + " (" +
-                geboortedatum + "), Adres " + adres.toString() + "}";
+                geboortedatum + "), " + adres.toString() + "}";
     }
 }
