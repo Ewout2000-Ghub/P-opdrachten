@@ -11,6 +11,7 @@ public class AdresDAOPsql implements AdresDAO{
 
     Connection connection;
     ReizigerDAO rdao;
+    Adres adres;
 
     public AdresDAOPsql(Connection conn) {
         this.connection = conn;
@@ -93,7 +94,6 @@ public class AdresDAOPsql implements AdresDAO{
     }
 
     public Adres findByReiziger(Reiziger reiziger) {
-        Adres adres = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM adres WHERE reiziger_id = ?");
