@@ -64,6 +64,10 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
             statement.executeQuery();
 
+            if (r.getAdres() != null) {
+                adresDAO.update(r.getAdres());
+            }
+
             System.out.println("Update complete");
             return true;
         } catch (SQLException e) {
@@ -89,6 +93,10 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
             statement.executeQuery();
 
+            if (r.getAdres() != null) {
+                adresDAO.delete(r.getAdres());
+            }
+
             System.out.println("Delete complete");
             return true;
         } catch (SQLException e) {
@@ -110,6 +118,9 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                     rs.getString("achternaam"),
                     rs.getDate("geboortedatum"));
 
+            Adres adres = adresDAO.findByReiziger(reiziger);
+            reiziger.setAdres(adres);
+
             return reiziger;
 
         } catch (SQLException e) {
@@ -127,7 +138,6 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
             ResultSet rs = statement.executeQuery();
 
-//            Reiziger reiziger = new Reiziger(rs.getInt("reiziger_id"), rs.getString("voorletters"), rs.getString("tussenvoegsel"), rs.getString("achternaam"), rs.getDate("geboortedatum"));
 
             int id;
             String voorletters;
@@ -143,6 +153,8 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                 gbdatum = rs.getDate("geboortedatum");
 
                 Reiziger reiziger = new Reiziger(id, voorletters, tussenvoegsel, achternaam, gbdatum);
+                Adres adres = adresDAO.findByReiziger(reiziger);
+                reiziger.setAdres(adres);
                 reizigerList.add(reiziger);
             }
             return reizigerList;
