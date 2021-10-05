@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Main {
 
-    private static Connection conn = null;
+    private static Connection conn;
 
     private static Connection getConnection() throws SQLException {
         if(conn == null) {
@@ -26,8 +26,15 @@ public class Main {
         return conn;
     }
 
+    private static Connection closeConnection() throws SQLException {
+        if (conn != null) {
+            conn.close();
+        }
+        return conn;
+    }
+
     public static void main(String[] args) throws SQLException {
-        AdresDAOPsql adresDao = new AdresDAOPsql(conn);
+        AdresDAOPsql adresDao = new AdresDAOPsql(getConnection());
 
         try {
             testAdresDAO(adresDao);
@@ -52,11 +59,18 @@ public class Main {
 
         // Test findByReiziger()
         System.out.println("[Test] AdresDAO.findByReiziger() geeft het volgende adres:");
-
         System.out.println(adao.findByReiziger(reiziger));
 
         // Test save()
         System.out.println("[Test] AdresDAO.save() geeft het volgende:");
         System.out.println(adao.save(adres));
+
+        // Test update()
+        System.out.println("[Test] AdresDAO.update() geeft het volgende:");
+        System.out.println(adao.update(adres));
+
+        // Test delete()
+        System.out.println("[Test] AdresDAO.delete() geeft het volgende:");
+        System.out.println(adao.delete(adres));
     }
 }
