@@ -1,6 +1,5 @@
 package Persistence;
 
-import Model.Adres;
 import Model.OVChipkaart;
 import Model.Reiziger;
 
@@ -75,7 +74,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
                             "geldig_tot = ?, " +
                             "klasse = ?, " +
                             "saldo = ?, " +
-                            "reiziger_id = ?");
+                            "reiziger_id = ?)");
             statement.setInt(1, ovChipkaart.getKaartNummer());
             statement.setDate(2, ovChipkaart.getGeldigTot());
             statement.setInt(3, ovChipkaart.getKlasse());

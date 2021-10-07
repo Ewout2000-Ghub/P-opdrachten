@@ -1,5 +1,8 @@
 package P4;
 
+import Persistence.OVChipkaartDAO;
+import Persistence.OVChipkaartDAOPsql;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,7 +21,15 @@ public class Main {
         return conn;
     }
 
-    public static void main(String[] args) {
+    private static Connection closeConnection() throws SQLException {
+        if (conn != null) {
+            conn.close();
+        }
+        return conn;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        OVChipkaartDAOPsql ovChipDao = new OVChipkaartDAOPsql(getConnection());
 
     }
 }

@@ -10,7 +10,6 @@ import java.util.List;
 public class AdresDAOPsql implements AdresDAO{
 
     Connection connection;
-    ReizigerDAO rdao;
     Adres adres;
 
     public AdresDAOPsql(Connection conn) {

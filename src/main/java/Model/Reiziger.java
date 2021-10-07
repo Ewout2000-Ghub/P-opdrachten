@@ -10,6 +10,7 @@ public class Reiziger {
     private String achternaam;
     private Date geboortedatum;
     private Adres adres;
+    private OVChipkaart ovChipkaart;
 
     public Reiziger(int id, String vrltr, String tsvg, String atnm, Date gbdtm) {
         this.id = id;
@@ -56,6 +57,7 @@ public class Reiziger {
     public Adres getAdres() {
         return adres;
     }
+    public OVChipkaart getOvChipkaart() {return ovChipkaart;}
 
     public String toString() {
         return "Reiziger {#" + id + ": " + voorletters + ". " +
