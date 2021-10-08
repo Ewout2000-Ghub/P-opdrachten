@@ -44,7 +44,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
     public boolean update(OVChipkaart ovChipkaart) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE adres SET " +
+                    "UPDATE ov_chipkaart SET " +
                             "kaart_nummer = ?, " +
                             "geldig_tot = ?, " +
                             "klasse = ?, " +
@@ -130,20 +130,20 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
 
             ResultSet rs = statement.executeQuery();
 
-            int kaartnummer;
+            int kaartNummer;
             Date geldig_tot;
             int klasse;
             int saldo;
             int reizigerId;
 
             while (rs.next()) {
-                kaartnummer = rs.getInt("kaart_nummer");
+                kaartNummer = rs.getInt("kaart_nummer");
                 geldig_tot = rs.getDate("geldig_tot");
                 klasse = rs.getInt("klasse");
                 saldo = rs.getInt("saldo");
                 reizigerId = rs.getInt("reiziger_id");
 
-                OVChipkaart ovChipkaart = new OVChipkaart(kaartnummer, geldig_tot, klasse, saldo, reizigerId);
+                OVChipkaart ovChipkaart = new OVChipkaart(kaartNummer, geldig_tot, klasse, saldo, reizigerId);
                 ovChipList.add(ovChipkaart);
             }
             return ovChipList;
