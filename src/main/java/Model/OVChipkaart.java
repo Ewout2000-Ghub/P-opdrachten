@@ -52,4 +52,11 @@ public class OVChipkaart {
         return reizigerId;
     }
     public Reiziger getReiziger() {return r;}
+
+    public String toString() {
+        return "OVChipkaart {#" + kaartNummer + ": " + geldigTot + ", " +
+                klasse + ", " +
+                saldo + ", " +
+                reizigerId + "}";
+    }
 }
