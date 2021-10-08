@@ -1,6 +1,7 @@
 package Model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Reiziger {
 
@@ -11,6 +12,7 @@ public class Reiziger {
     private Date geboortedatum;
     private Adres adres;
     private OVChipkaart ovChipkaart;
+    public List<OVChipkaart> ovChipList;
 
     public Reiziger(int id, String vrltr, String tsvg, String atnm, Date gbdtm) {
         this.id = id;
@@ -38,6 +40,12 @@ public class Reiziger {
     public void setAdres(Adres adres) {
         this.adres = adres;
     }
+    public void setOvChipkaart(OVChipkaart ovChipkaart) {
+        this.ovChipkaart = ovChipkaart;
+    }
+    public void setOvChipList(List<OVChipkaart> ovChipList) {
+        this.ovChipList = ovChipList;
+    }
 
     public int getId() {
         return id;
@@ -58,11 +66,16 @@ public class Reiziger {
         return adres;
     }
     public OVChipkaart getOvChipkaart() {return ovChipkaart;}
+    public List<OVChipkaart> getOvChipList() {
+        return ovChipList;
+    }
 
     public String toString() {
         return "Reiziger {#" + id + ": " + voorletters + ". " +
                 tussenvoegsel + " " +
                 achternaam + " (" +
-                geboortedatum + "), " + adres.toString() + "}";
+                geboortedatum + "), " +
+                adres.toString() +
+                ovChipkaart.toString() + "}";
     }
 }

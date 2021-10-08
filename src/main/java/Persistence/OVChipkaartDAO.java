@@ -1,6 +1,5 @@
 package Persistence;
 
-import Model.Adres;
 import Model.OVChipkaart;
 import Model.Reiziger;
 

@@ -1,6 +1,7 @@
 package Persistence;
 
 import Model.Adres;
+import Model.OVChipkaart;
 import Model.Reiziger;
 
 import java.sql.*;
@@ -11,6 +12,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
     private Connection connection;
     private AdresDAO adresDAO;
+    private OVChipkaartDAO ovChipkaartDAO;
 
     public ReizigerDAOPsql(Connection conn) throws SQLException {
         this.connection = conn;
@@ -36,6 +38,9 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
             if (r.getAdres() != null) {
                 adresDAO.save(r.getAdres());
+            }
+            if (r.getOvChipkaart() != null) {
+                ovChipkaartDAO.save(r.getOvChipkaart());
             }
 
             System.out.println("Save complete");
@@ -67,6 +72,9 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             if (r.getAdres() != null) {
                 adresDAO.update(r.getAdres());
             }
+            if (r.getOvChipkaart() != null) {
+                ovChipkaartDAO.update(r.getOvChipkaart());
+            }
 
             System.out.println("Update complete");
             return true;
@@ -96,6 +104,9 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             if (r.getAdres() != null) {
                 adresDAO.delete(r.getAdres());
             }
+            if (r.getOvChipkaart() != null) {
+                ovChipkaartDAO.delete(r.getOvChipkaart());
+            }
 
             System.out.println("Delete complete");
             return true;
@@ -121,6 +132,9 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             Adres adres = adresDAO.findByReiziger(reiziger);
             reiziger.setAdres(adres);
 
+            List<OVChipkaart> ovChipkaart = ovChipkaartDAO.findByReiziger(reiziger);
+            reiziger.setOvChipList(ovChipkaart);
+
             return reiziger;
 
         } catch (SQLException e) {
@@ -138,7 +152,6 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
             ResultSet rs = statement.executeQuery();
 
-
             int id;
             String voorletters;
             String tussenvoegsel;
@@ -153,8 +166,13 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                 gbdatum = rs.getDate("geboortedatum");
 
                 Reiziger reiziger = new Reiziger(id, voorletters, tussenvoegsel, achternaam, gbdatum);
+
                 Adres adres = adresDAO.findByReiziger(reiziger);
                 reiziger.setAdres(adres);
+
+                List<OVChipkaart> ovChipkaart = ovChipkaartDAO.findByReiziger(reiziger);
+                reiziger.setOvChipList(ovChipkaart);
+
                 reizigerList.add(reiziger);
             }
             return reizigerList;
@@ -186,8 +204,13 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                 gbdatum = rs.getDate("geboortedatum");
 
                 Reiziger reiziger = new Reiziger(id, voorletters, tussenvoegsel, achternaam, gbdatum);
+
                 Adres adres = adresDAO.findByReiziger(reiziger);
                 reiziger.setAdres(adres);
+
+                List<OVChipkaart> ovChipkaart = ovChipkaartDAO.findByReiziger(reiziger);
+                reiziger.setOvChipList(ovChipkaart);
+
                 reizigerList.add(reiziger);
             }
             return reizigerList;
