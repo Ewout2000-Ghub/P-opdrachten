@@ -1,6 +1,7 @@
 package Model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class OVChipkaart {
 
@@ -10,6 +11,7 @@ public class OVChipkaart {
     private int saldo;
     private int reizigerId;
     private Reiziger r;
+    public List<Product> productList;
 
     public OVChipkaart(int kaartNr, Date gldTot, int klasse, int saldo, int rId) {
         this.kaartNummer = kaartNr;
@@ -35,7 +37,6 @@ public class OVChipkaart {
         this.reizigerId = reizigerId;
     }
 
-
     public int getKaartNummer() {
         return kaartNummer;
     }
@@ -52,6 +53,21 @@ public class OVChipkaart {
         return reizigerId;
     }
     public Reiziger getReiziger() {return r;}
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void removeProduct(Product product) {
+        if (productList.contains(product)) {
+            productList.remove(product);
+        }
+    }
+
+    public void addProduct (Product product) {
+        if (!productList.contains(product)) {
+            productList.add(product);
+        }
+    }
 
     public String toString() {
         return "OVChipkaart {#" + kaartNummer + ": " + geldigTot + ", " +

@@ -36,7 +36,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
 
             return true;
         } catch (SQLException e) {
-            System.out.println("Saving didn't work: " + e.getMessage());
+            System.out.println("Saving OVChipkaart didn't work: " + e.getMessage());
             return false;
         }
     }
@@ -61,7 +61,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             System.out.println("Update complete");
             return true;
         } catch (SQLException e) {
-            System.out.println("Updating didn't work: " + e.getMessage());
+            System.out.println("Updating OVChipkaart didn't work: " + e.getMessage());
             return false;
         }
     }
@@ -85,7 +85,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
 
             return true;
         } catch (SQLException e) {
-            System.out.println("Deleting didn't work: " + e.getMessage());
+            System.out.println("Deleting OVChipkaart didn't work: " + e.getMessage());
             return false;
         }
     }
