@@ -27,7 +27,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             statement.setInt(1, ovChipkaart.getKaartNummer());
             statement.setDate(2, ovChipkaart.getGeldigTot());
             statement.setInt(3, ovChipkaart.getKlasse());
-            statement.setInt(4, ovChipkaart.getKlasse());
+            statement.setDouble(4, ovChipkaart.getSaldo());
             statement.setInt(5, ovChipkaart.getReizigerId());
 
             statement.executeQuery();
@@ -53,7 +53,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             statement.setInt(1, ovChipkaart.getKaartNummer());
             statement.setDate(2, ovChipkaart.getGeldigTot());
             statement.setInt(3, ovChipkaart.getKlasse());
-            statement.setInt(4, ovChipkaart.getKlasse());
+            statement.setDouble(4, ovChipkaart.getSaldo());
             statement.setInt(5, ovChipkaart.getReizigerId());
 
             statement.executeQuery();
@@ -78,7 +78,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             statement.setInt(1, ovChipkaart.getKaartNummer());
             statement.setDate(2, ovChipkaart.getGeldigTot());
             statement.setInt(3, ovChipkaart.getKlasse());
-            statement.setInt(4, ovChipkaart.getKlasse());
+            statement.setDouble(4, ovChipkaart.getSaldo());
             statement.setInt(5, ovChipkaart.getReizigerId());
 
             statement.executeQuery();
@@ -101,14 +101,14 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             int kaartnummer;
             Date geldig_tot;
             int klasse;
-            int saldo;
+            double saldo;
             int reizigerId;
 
             while (rs.next()) {
                 kaartnummer = rs.getInt("kaart_nummer");
                 geldig_tot = rs.getDate("geldig_tot");
                 klasse = rs.getInt("klasse");
-                saldo = rs.getInt("saldo");
+                saldo = rs.getDouble("saldo");
                 reizigerId = rs.getInt("reiziger_id");
 
                 OVChipkaart ovChipkaart = new OVChipkaart(kaartnummer, geldig_tot, klasse, saldo, reizigerId);
@@ -133,14 +133,14 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             int kaartNummer;
             Date geldig_tot;
             int klasse;
-            int saldo;
+            double saldo;
             int reizigerId;
 
             while (rs.next()) {
                 kaartNummer = rs.getInt("kaart_nummer");
                 geldig_tot = rs.getDate("geldig_tot");
                 klasse = rs.getInt("klasse");
-                saldo = rs.getInt("saldo");
+                saldo = rs.getDouble("saldo");
                 reizigerId = rs.getInt("reiziger_id");
 
                 OVChipkaart ovChipkaart = new OVChipkaart(kaartNummer, geldig_tot, klasse, saldo, reizigerId);

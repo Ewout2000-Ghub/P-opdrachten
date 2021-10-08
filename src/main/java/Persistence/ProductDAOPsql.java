@@ -2,7 +2,6 @@ package Persistence;
 
 import Model.OVChipkaart;
 import Model.Product;
-import Model.Reiziger;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -25,7 +24,7 @@ public class ProductDAOPsql implements ProductDAO {
             statement.setInt(1, product.getProductNummer());
             statement.setString(2, product.getNaam());
             statement.setString(3, product.getBeschrijving());
-            statement.setInt(4, product.getPrijs());
+            statement.setDouble(4, product.getPrijs());
 
             statement.executeQuery();
 
@@ -41,7 +40,7 @@ public class ProductDAOPsql implements ProductDAO {
 
             statement2.executeQuery();
 
-            System.out.println("Save complete");
+            System.out.println("Save product complete");
 
             return true;
         } catch (SQLException e) {
@@ -61,11 +60,11 @@ public class ProductDAOPsql implements ProductDAO {
             statement.setInt(1, product.getProductNummer());
             statement.setString(2, product.getNaam());
             statement.setString(3, product.getBeschrijving());
-            statement.setInt(4, product.getPrijs());
+            statement.setDouble(4, product.getPrijs());
 
             statement.executeQuery();
 
-            System.out.println("Update complete");
+            System.out.println("Updating product complete");
             return true;
         } catch (SQLException e) {
             System.out.println("Updating product didn't work: " + e.getMessage());
@@ -84,25 +83,22 @@ public class ProductDAOPsql implements ProductDAO {
             statement.setInt(1, product.getProductNummer());
             statement.setString(2, product.getNaam());
             statement.setString(3, product.getBeschrijving());
-            statement.setInt(4, product.getPrijs());
+            statement.setDouble(4, product.getPrijs());
 
             statement.executeQuery();
 
             PreparedStatement statement2 = connection.prepareStatement(
                     "DELETE FROM ov_chipkaart_product WHERE (" +
                             "kaart_nummer = ?, " +
-                            "product_nummer = ?, " +
-                            "status = ?, " +
-                            "last_update = ?)");
+                            "product_nummer = ?)");
             for (OVChipkaart ovChipkaart : product.ovChipList) {
                 statement2.setInt(1, ovChipkaart.getKaartNummer());
                 statement2.setInt(2, product.getProductNummer());
-                statement2.setString(3, "gekocht");
-                statement2.setDate(4, Date.valueOf(LocalDate.now()));
             }
 
             statement2.executeQuery();
 
+            System.out.println("Deleting product complete");
             return true;
         } catch (SQLException e) {
             System.out.println("Deleting product didn't work: " + e.getMessage());
@@ -125,13 +121,13 @@ public class ProductDAOPsql implements ProductDAO {
             int productNummer;
             String naam;
             String beschrijving;
-            int prijs;
+            double prijs;
 
             while (rs.next()) {
                 productNummer = rs.getInt("product_nummer");
                 naam = rs.getString("naam");
                 beschrijving = rs.getString("beschrijving");
-                prijs = rs.getInt("prijs");
+                prijs = rs.getDouble("prijs");
 
                 Product product = new Product(productNummer, naam, beschrijving, prijs);
                 productList.add(product);
@@ -153,13 +149,13 @@ public class ProductDAOPsql implements ProductDAO {
             int productNummer;
             String naam;
             String beschrijving;
-            int prijs;
+            double prijs;
 
             while (rs.next()) {
                 productNummer = rs.getInt("product_nummer");
                 naam = rs.getString("naam");
                 beschrijving = rs.getString("beschrijving");
-                prijs = rs.getInt("prijs");
+                prijs = rs.getDouble("prijs");
 
                 Product product = new Product(productNummer, naam, beschrijving, prijs);
                 productList.add(product);
