@@ -14,9 +14,14 @@ import java.util.List;
 public class OVChipkaartDAOPsql implements OVChipkaartDAO {
 
     Connection connection;
+    private ProductDAOPsql productDAO;
 
     public OVChipkaartDAOPsql(Connection conn) {
         this.connection = conn;
+    }
+
+    public void setPdao(ProductDAOPsql pdao) {
+        this.productDAO = pdao;
     }
 
     public boolean save(OVChipkaart ovChipkaart) throws SQLException {

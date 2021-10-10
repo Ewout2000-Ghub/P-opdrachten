@@ -21,6 +21,15 @@ public class OVChipkaart {
         this.reizigerId = rId;
     }
 
+    public OVChipkaart(int kaartNr, Date gldTot, int klasse, double saldo, int rId, List<Product> pList) {
+        this.kaartNummer = kaartNr;
+        this.geldigTot = gldTot;
+        this.klasse = klasse;
+        this.saldo = saldo;
+        this.reizigerId = rId;
+        this.productList = pList;
+    }
+
     public void setKaartNummer(int kaartNummer) {
         this.kaartNummer = kaartNummer;
     }

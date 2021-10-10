@@ -2,8 +2,8 @@ package P5;
 
 import Model.OVChipkaart;
 import Model.Product;
-import Persistence.ProductDAO;
-import Persistence.ProductDAOPsql;
+import Model.Reiziger;
+import Persistence.*;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -32,35 +32,56 @@ public class Main {
     }
 
     public static void main(String[] args) throws SQLException {
-        ProductDAOPsql productDAO = new ProductDAOPsql(getConnection());
-
         try {
-            testProductDAO(productDAO);
+            Connection conn = getConnection();
+            ProductDAOPsql productDAO = new ProductDAOPsql(conn);
+            ReizigerDAOPsql reizigerDAO = new ReizigerDAOPsql(conn);
+            OVChipkaartDAOPsql ovChipdao = new OVChipkaartDAOPsql(conn);
+            ovChipdao.setPdao(productDAO);
+            testProductDAO(productDAO, reizigerDAO, ovChipdao);
+            closeConnection();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static void testProductDAO(ProductDAO pdao) throws SQLException {
+    private static void testProductDAO(ProductDAO pdao, ReizigerDAO rdao, OVChipkaartDAO ovChipDAO) throws SQLException {
         System.out.println("\n---------- Test ProductDAO -------------");
-        Product product = new Product(8, "Business card", "Eerste klas reizen op kosten van het bedrijf", 0.00);
-        OVChipkaart ovChipkaart = new OVChipkaart(35283, Date.valueOf("2018-05-31"), 2, 25.50, 2);
+        Reiziger reiziger = new Reiziger(5829, "T", "van", "Baak", java.sql.Date.valueOf("1998-07-11"));
+        Product product = new Product(9, "test card", "testbeschrijving", 0.00);
+        OVChipkaart ovChipkaart = new OVChipkaart(54321, Date.valueOf("2012-05-31"), 2, 25.50, 2);
 
         // Test save()
         System.out.println("[Test] ProductDAO.save() geeft het volgende:");
+        System.out.println(rdao.save(reiziger));
+
+        System.out.println("[Test] OVChipkaartDAO.save() geeft het volgende:");
+        System.out.println(ovChipDAO.save(ovChipkaart));
+
+        product.getOvChipList().add(ovChipkaart);
+
+        System.out.println("[Test] ProductDAO.save() geeft het volgende:");
         System.out.println(pdao.save(product));
 
+        System.out.println(pdao.findAll());
+
         // Test update()
-        System.out.println("[Test] ProductDAO.update() geeft het volgende:");
+        System.out.println("voor update");
+        System.out.println(pdao.findByOVChipkaart(ovChipkaart));
+
+        product.setBeschrijving("update");
         System.out.println(pdao.update(product));
+
+        System.out.println("na update");
+        System.out.println(pdao.findByOVChipkaart(ovChipkaart));
 
         // Test delete()
         System.out.println("[Test] ProductDAO.delete() geeft het volgende:");
         System.out.println(pdao.delete(product));
 
-        // Test findByOVChipkaart()
-        System.out.println("[Test] ProductDAO.findByOVChipkaart() geeft het volgende:");
         System.out.println(pdao.findByOVChipkaart(ovChipkaart));
+        System.out.println(pdao.findAll());
+
     }
 }

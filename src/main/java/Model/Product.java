@@ -8,13 +8,21 @@ public class Product {
     private String naam;
     private String beschrijving;
     private double prijs;
-    public List<OVChipkaart> ovChipList;
+    private List<OVChipkaart> ovChipList;
 
     public Product(int pNum, String naam, String bschr, double prijs) {
         this.productNummer = pNum;
         this.naam = naam;
         this.beschrijving = bschr;
         this.prijs = prijs;
+    }
+
+    public Product(int pNum, String naam, String bschr, double prijs, List<OVChipkaart> ovList) {
+        this.productNummer = pNum;
+        this.naam = naam;
+        this.beschrijving = bschr;
+        this.prijs = prijs;
+        this.ovChipList = ovList;
     }
 
     public void setProductNummer(int productNummer) {

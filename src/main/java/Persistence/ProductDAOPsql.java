@@ -11,11 +11,14 @@ import java.util.List;
 public class ProductDAOPsql implements ProductDAO {
 
     Connection connection;
+    private OVChipkaartDAOPsql odao = null;
 
     public ProductDAOPsql(Connection conn) {
         this.connection = conn;
+        this.odao = new OVChipkaartDAOPsql(conn);
     }
 
+    @Override
     public boolean save(Product product) throws SQLException {
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -31,7 +34,7 @@ public class ProductDAOPsql implements ProductDAO {
             PreparedStatement statement2 = connection.prepareStatement(
                     "INSERT INTO ov_chipkaart_product (kaart_nummer, product_nummer, status, last_update) " +
                             "VALUES (?, ?, ?, ?)");
-            for (OVChipkaart ovChipkaart : product.ovChipList) {
+            for (OVChipkaart ovChipkaart : product.getOvChipList()) {
                 statement2.setInt(1, ovChipkaart.getKaartNummer());
                 statement2.setInt(2, product.getProductNummer());
                 statement2.setString(3, "gekocht");
@@ -49,6 +52,7 @@ public class ProductDAOPsql implements ProductDAO {
         }
     }
 
+    @Override
     public boolean update(Product product) {
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -72,6 +76,7 @@ public class ProductDAOPsql implements ProductDAO {
         }
     }
 
+    @Override
     public boolean delete(Product product) {
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -91,7 +96,7 @@ public class ProductDAOPsql implements ProductDAO {
                     "DELETE FROM ov_chipkaart_product WHERE (" +
                             "kaart_nummer = ?, " +
                             "product_nummer = ?)");
-            for (OVChipkaart ovChipkaart : product.ovChipList) {
+            for (OVChipkaart ovChipkaart : product.getOvChipList()) {
                 statement2.setInt(1, ovChipkaart.getKaartNummer());
                 statement2.setInt(2, product.getProductNummer());
             }
@@ -106,6 +111,7 @@ public class ProductDAOPsql implements ProductDAO {
         }
     }
 
+    @Override
     public List<Product> findByOVChipkaart(OVChipkaart ovChipkaart) {
         try {
             List<Product> productList = new ArrayList<>();
@@ -140,6 +146,7 @@ public class ProductDAOPsql implements ProductDAO {
         }
     }
 
+    @Override
     public List<Product> findAll() {
         try {
             List<Product> productList = new ArrayList<>();
