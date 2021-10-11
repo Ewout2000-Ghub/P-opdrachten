@@ -1,6 +1,7 @@
 package Persistence;
 
 import Model.OVChipkaart;
+import Model.Product;
 import Model.Reiziger;
 
 import java.sql.Connection;
@@ -15,6 +16,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
 
     Connection connection;
     private ProductDAOPsql productDAO;
+    private ProductDAO pdao;
 
     public OVChipkaartDAOPsql(Connection conn) {
         this.connection = conn;
@@ -62,6 +64,12 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             statement.setInt(5, ovChipkaart.getReizigerId());
 
             statement.executeQuery();
+
+            for (Product product : pdao.findByOVChipkaart(ovChipkaart)) {
+                if (ovChipkaart.getProductList().contains(product)) {
+                    pdao.update(product);
+                }
+            }
 
             System.out.println("Update complete");
             return true;
