@@ -86,6 +86,14 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
     public boolean delete(Reiziger r) {
         try {
+
+            if (r.getAdres() != null) {
+                adresDAO.delete(r.getAdres());
+            }
+            if (r.getOvChipkaart() != null) {
+                ovChipkaartDAO.delete(r.getOvChipkaart());
+            }
+
             PreparedStatement statement = connection.prepareStatement(
                     "DELETE FROM reiziger WHERE (" +
                             "reiziger_id = ?, " +
@@ -100,13 +108,6 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             statement.setDate(5, r.getGeboortedatum());
 
             statement.executeQuery();
-
-            if (r.getAdres() != null) {
-                adresDAO.delete(r.getAdres());
-            }
-            if (r.getOvChipkaart() != null) {
-                ovChipkaartDAO.delete(r.getOvChipkaart());
-            }
 
             System.out.println("Delete complete");
             return true;
